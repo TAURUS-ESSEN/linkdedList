@@ -134,6 +134,44 @@ class LinkedList {
             while (current !== null);
             return null
         }
+
+        toString() {
+            if (this.head === '') {
+                return `( empty )`
+            }
+            let current = this.head;
+            let str = '';
+            do {
+                str += `( ${current.name} ) -> `
+                current = current.next;
+            } while (current !== null);
+            return str+'null';
+        }
+
+        insertAt(value, index) {
+            list.append(value);
+            let current = this.head;
+            let previos = '';
+            let next = '';
+            let oldindex = 0;
+            do {
+                oldindex++
+                previos = current;
+                current = current.next;
+                next = current.next;
+              if (oldindex === index ) {
+                    console.log('index ', index)
+                    console.log("предыдущий", previos)
+                    console.log("current", current)
+                    console.log("next", next)
+                    // previos.next = 
+                    return console.log("OBA NA", oldindex)
+                }
+            } while (current !== null)
+
+
+        }
+
     }
 
 const list = new LinkedList("animals");
@@ -144,9 +182,6 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
-// console.log("HEAD.NAME:", list.head.name, "HEAD.NEXT:", list.head.next)
-// console.log("TAIl:", list.tail.name, list.tail.next)
-// console.log("-------------------------")
 
 list.prepend("lion");
 list.prepend("TIGER");
@@ -168,3 +203,9 @@ console.log("-------------------------")
 console.log(list.contains('parrot'));
 console.log("-------------------------")
 console.log(list.find('cat'))
+console.log("-------------------------")
+console.log(list.toString());
+console.log("-------------------------")
+list.insertAt("Dinosaur", 3);
+console.log(list.at(3))
+console.log("TAIl:", list.tail.name, list.tail.next)

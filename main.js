@@ -167,10 +167,37 @@ class LinkedList {
                     return console.log("Добавлен новый нод")
                 }
             } while (current !== null)
-
-
         }
 
+        removeAt(index) {
+            if (index === 0) {
+                this.head = this.head.next;
+                return console.log(`head теперь ${this.head.name}`)
+            }
+
+            let current = this.head;
+            let previous = '';
+            let oldindex = 0;
+            do {
+                oldindex++ 
+
+                console.log(current.next)
+                previous = current;
+                current = current.next;                
+                if (oldindex === index) {
+                    console.log("!!!!!!!!!!!", current)
+                    if (current === this.tail) {
+                        previous.next = null
+                        return console.log(`удален последний элемент списка ${current.name}`)
+                    }
+                    previous.next = current.next;
+                    current.next = null;
+                    return console.log(`Элемент ${current.name} успешно удален из списка`)
+                }
+            }
+            while (current.next !== null);
+                return console.log('слишком большой индекс')
+        }
     }
 
 const list = new LinkedList("animals");
@@ -207,4 +234,7 @@ console.log(list.toString());
 console.log("-------------------------")
 list.insertAt("Dinosaur", 3);
 console.log(list.at(3))
-console.log("TAIl:", list.tail.name, list.tail.next)
+console.log("-------------------------")
+console.log(list.toString());
+list.removeAt(5);
+console.log(list.toString());

@@ -2,7 +2,7 @@
 class Node {
     constructor (name) {
         this.name = name;
-        this.next = '';
+        this.next = null;
     }
 }
 
@@ -14,7 +14,6 @@ class LinkedList {
     }
     append (value) {
         let node = new Node(value);
-        console.log(node);
         if (this.head === '') {
             this.head = node
             this.tail = node
@@ -23,6 +22,47 @@ class LinkedList {
             this.tail.next = node;
             this.tail = node;
         }
+    }
+
+    prepend(value) {
+        let node = new Node(value);
+        node.next = this.head;
+        this.head = node
+    }
+
+    size() {
+        if (this.head !== '') {
+            if (this.head.next === null) {
+                return '1 Node'
+            }
+
+            let current = this.head;
+            console.log('current = ', current)
+            let counter = 0;
+            do {
+                counter++;
+                current = current.next;
+                console.log('next = ', current)
+            }
+                while (current !== null)
+            return counter + ' nodes'
+        }
+        else {
+            return "list ist empty"
+        }
+    }
+
+    listHead() {
+        return `head.name: ${this.head.name}`
+    }
+
+    listTail() {
+        return `tail.name: ${this.tail.name}`
+    }
+
+
+    pop() {
+        
     }
 }
 
@@ -34,19 +74,16 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
-console.log(list)
-console.log(list.head)
-console.log(list.head.next.name)
-console.log(list.tail)
-// console.log(list.toString());
+console.log("HEAD.NAME:", list.head.name, "HEAD.NEXT:", list.head.next)
+console.log("TAIl:", list.tail.name, list.tail.next)
+console.log("-------------------------")
 
- console.log(list)
-
- const person = {
-    firstName: "John",
-    lastName: "Doe",
-    age: 50,
-    eyeColor: "blue"
-  };
-  const keys = Object.toString(person);
-  console.log(person)
+list.prepend("lion");
+list.prepend("TIGER");
+console.log("HEAD.NAME:", list.head.name, "HEAD.NEXT:", list.head.next)
+console.log("TAIl:", list.tail.name, list.tail.next)
+ console.log(list);
+ console.log(list.listHead())
+ console.log(list.listTail())
+ console.log("-------------------------")
+ console.log(list.size())

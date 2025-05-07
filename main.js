@@ -149,23 +149,22 @@ class LinkedList {
         }
 
         insertAt(value, index) {
-            list.append(value);
+            if (index === 0) {
+                this.prepend(value);
+                return;
+            }
+            let newNode = new Node (value);
             let current = this.head;
-            let previos = '';
-            let next = '';
+            let previous = '';
             let oldindex = 0;
             do {
                 oldindex++
-                previos = current;
+                previous = current;
                 current = current.next;
-                next = current.next;
-              if (oldindex === index ) {
-                    console.log('index ', index)
-                    console.log("предыдущий", previos)
-                    console.log("current", current)
-                    console.log("next", next)
-                    // previos.next = 
-                    return console.log("OBA NA", oldindex)
+            if (oldindex === index ) {
+                    previous.next = newNode;
+                    newNode.next = current
+                    return console.log("Добавлен новый нод")
                 }
             } while (current !== null)
 

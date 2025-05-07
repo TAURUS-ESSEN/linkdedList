@@ -1,206 +1,7 @@
 'use strict';
-class Node {
-    constructor (name) {
-        this.name = name;
-        this.next = null;
-    }
-}
+import { LinkedList } from './linkedList.js';
 
-class LinkedList {
-    constructor (name) {
-        this.name = name;
-        this.head = '';
-        this.tail = '';
-    }
-    append (value) {
-        let node = new Node(value);
-        if (this.head === '') {
-            this.head = node
-            this.tail = node
-        }
-        else {
-            this.tail.next = node;
-            this.tail = node;
-        }
-    }
-
-    prepend(value) {
-        let node = new Node(value);
-        node.next = this.head;
-        this.head = node
-    }
-
-    size() {
-        if (this.head !== '') {
-            if (this.head.next === null) {
-                return '1 Node'
-            }
-
-            let current = this.head;
-            // console.log('current = ', current)
-            let counter = 0;
-            do {
-                counter++;
-                current = current.next;
-                // console.log('next = ', current)
-            }
-                while (current !== null)
-            return counter + ' nodes'
-        }
-        else {
-            return "list ist empty"
-        }
-    }
-
-    listHead() {
-        return `head.name: ${this.head.name}`
-    }
-
-    listTail() {
-        return `tail.name: ${this.tail.name}`
-    }
-
-    at(index) {
-        if (this.head !== '') {
-            if ((this.head.next === null) || (index===0)) {
-                return this.head
-            }
-
-            let current = this.head;
-            let counter = 0;
-            do {    counter++;
-                 if (current.next === null) {
-                    return 'слишком большой индекс'
-                }
-                current = current.next;
-            }
-                while (counter !== index)
-            return current
-        }
-        else {
-            return "list ist empty"
-        }
-    }
-    pop() {
-            if (this.head === '' ) {
-                return "list ist empty"
-            }
-            if (this.head === this.tail ) {
-                this.head = '';
-                this.tail = '';
-                return "now list is empty"
-            }
-            let current = this.head;
-            let previous = '';
-            do {
-                previous = current; 
-                console.log("previos =", previous)
-                current = current.next;
-            }
-            while (current.next !==null );
-                console.log("ПРЕДПОСЛЕДНИЙ", previous);
-                previous.next = null;
-                this.tail = previous
-        }
-
-        contains(value) {
-            if (this.head === '') {
-                return false
-            }
-            let current = this.head;
-            do {
-                if (current.name === value) {
-                    return true
-                }
-                current = current.next;
-            } while (current !== null);
-            return false
-        }
-
-        find(value) {
-            if (this.head === '') {
-                return null
-            }
-            let current = this.head;
-            let index = 0; 
-            do {
-                if (current.name === value) {
-                    return index
-                }
-                index++;
-                current = current.next;
-                
-            }
-            while (current !== null);
-            return null
-        }
-
-        toString() {
-            if (this.head === '') {
-                return `( empty )`
-            }
-            let current = this.head;
-            let str = '';
-            do {
-                str += `( ${current.name} ) -> `
-                current = current.next;
-            } while (current !== null);
-            return str+'null';
-        }
-
-        insertAt(value, index) {
-            if (index === 0) {
-                this.prepend(value);
-                return;
-            }
-            let newNode = new Node (value);
-            let current = this.head;
-            let previous = '';
-            let oldindex = 0;
-            do {
-                oldindex++
-                previous = current;
-                current = current.next;
-            if (oldindex === index ) {
-                    previous.next = newNode;
-                    newNode.next = current
-                    return console.log("Добавлен новый нод")
-                }
-            } while (current !== null)
-        }
-
-        removeAt(index) {
-            if (index === 0) {
-                this.head = this.head.next;
-                return console.log(`head теперь ${this.head.name}`)
-            }
-
-            let current = this.head;
-            let previous = '';
-            let oldindex = 0;
-            do {
-                oldindex++ 
-
-                console.log(current.next)
-                previous = current;
-                current = current.next;                
-                if (oldindex === index) {
-                    console.log("!!!!!!!!!!!", current)
-                    if (current === this.tail) {
-                        previous.next = null
-                        return console.log(`удален последний элемент списка ${current.name}`)
-                    }
-                    previous.next = current.next;
-                    current.next = null;
-                    return console.log(`Элемент ${current.name} успешно удален из списка`)
-                }
-            }
-            while (current.next !== null);
-                return console.log('слишком большой индекс')
-        }
-    }
-
-const list = new LinkedList("animals");
+const list = new LinkedList();
 
 list.append("dog");
 list.append("cat");
@@ -208,33 +9,36 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
-
+console.log("head.name:", list.head.name, "head.next:", list.head.next)
+console.log("tail.name:", list.tail.name, "tail.next:", list.tail.next)
+console.log("-------------------------")
 list.prepend("lion");
-list.prepend("TIGER");
-console.log("HEAD.NAME:", list.head.name, "HEAD.NEXT:", list.head.next)
-console.log("TAIl:", list.tail.name, list.tail.next)
- console.log(list);
- console.log(list.listHead())
- console.log(list.listTail())
- console.log(list.size());
-
+list.prepend("tiger");
+console.log("head.name:", list.head.name, "head.next:", list.head.next)
+console.log("tail.name:", list.tail.name, "tail.next:", list.tail.next)
+console.log("-------------------------")
+console.log(list.listHead())
+console.log("-------------------------")
+console.log(list.listTail())
+console.log("-------------------------")
+console.log(list.size());
+console.log("-------------------------")
 console.log(list.at(2)); 
 console.log("-------------------------")
-
 list.pop()
-console.log("TAIl:", list.tail.name, list.tail.next)
-
+console.log("tail.name:", list.tail.name, "tail.next:", list.tail.next)
 console.log("-------------------------")
-
 console.log(list.contains('parrot'));
 console.log("-------------------------")
 console.log(list.find('cat'))
 console.log("-------------------------")
 console.log(list.toString());
 console.log("-------------------------")
+console.log("before :", list.toString());
 list.insertAt("Dinosaur", 3);
+console.log("after :", list.toString());
 console.log(list.at(3))
 console.log("-------------------------")
-console.log(list.toString());
+console.log("before :", list.toString());
 list.removeAt(5);
-console.log(list.toString());
+console.log("after :", list.toString());
